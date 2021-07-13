@@ -1,5 +1,6 @@
 # pyrcbm
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/lirc572/pyrcbm/Tests?style=for-the-badge)](https://github.com/lirc572/pyrcbm/actions/workflows/tests.yml)
 [![PyPI](https://img.shields.io/pypi/v/pyrcbm?style=for-the-badge)](https://pypi.org/project/pyrcbm/)
 
 This repository contains command line tools to generate [RCbenchmark](https://www.rcbenchmark.com/pages/rcbenchmark-software) scripts.
