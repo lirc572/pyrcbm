@@ -59,7 +59,7 @@ optional arguments:
 ### Generate an RCbencemark script that outputs a sin wave (sin_rcbm)
 
 ```
-usage: sin_rcbm [-h] [-o OFFSET] [-a AMPLITUDE] [-f FREQUENCY] [-p PHASE] [--avg AVERAGE]
+usage: sin_rcbm.py [-h] [-o OFFSET] [-a AMPLITUDE] [-f FREQUENCY] [-p PHASE] [-r] [--avg AVERAGE]
 
 Generate a RCbenchmark script that produces sinusoidal wave
 
@@ -73,5 +73,6 @@ optional arguments:
                         angular frequency in radians per second (default is '1')
   -p PHASE, --phase PHASE
                         phase, specifies in radians where in its cycle the oscillation is at t=0 (default is '0')
+  -r, --rampup          ramp up from 1000 to initial value (disabled by default)
   --avg AVERAGE         sample average (default is '20')
 ```

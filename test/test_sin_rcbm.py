@@ -32,7 +32,7 @@ class TestSinRcbm:
 
         os.chdir(tmpdir)
         print('tmpdir -- CWD: {}'.format(os.getcwd()))
-        sin_rcbm.gen_script(test['offset'], test['amplitude'], test['omega'], test['phi'], test['sample_average'])
+        sin_rcbm.gen_script(test['offset'], test['amplitude'], test['omega'], test['phi'], test['rampup'], test['sample_average'])
         with open('sin_wave.js', 'r') as output_file:
             output_file_content = output_file.read()
             assert output_file_content == expected_file_content
@@ -43,6 +43,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_default.js'), test)
@@ -53,6 +54,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_offset_in_range_1.js'), test)
@@ -63,6 +65,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_offset_in_range_2.js'), test)
@@ -73,6 +76,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         with pytest.raises(AssertionError):
@@ -84,6 +88,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         with pytest.raises(AssertionError):
@@ -95,27 +100,30 @@ class TestSinRcbm:
             'amplitude': '0',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_amplitude_in_range.js'), test)
 
-    def test_offset_out_of_range_1(self, datadir):
+    def test_amplitude_out_of_range_1(self, datadir):
         test = {
             'offset': '1500',
             'amplitude': '-1',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         with pytest.raises(AssertionError):
             self.check_output_file(datadir, '', test)
 
-    def test_offset_out_of_range_2(self, datadir):
+    def test_amplitude_out_of_range_2(self, datadir):
         test = {
             'offset': '1500',
             'amplitude': '501',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         with pytest.raises(AssertionError):
@@ -127,6 +135,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '0.1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_frequency_1.js'), test)
@@ -137,6 +146,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '99',
             'phi': '0',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_frequency_2.js'), test)
@@ -147,6 +157,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '6.28',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_phase_1.js'), test)
@@ -157,9 +168,21 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '-5',
+            'rampup': False,
             'sample_average': '20',
         }
         self.check_output_file(datadir, datadir.join('sin_phase_2.js'), test)
+
+    def test_rampup(self, datadir):
+        test = {
+            'offset': '1500',
+            'amplitude': '500',
+            'omega': '1',
+            'phi': '0',
+            'rampup': True,
+            'sample_average': '20',
+        }
+        self.check_output_file(datadir, datadir.join('sin_rampup.js'), test)
 
     def test_avg_1(self, datadir):
         test = {
@@ -167,6 +190,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '1',
         }
         self.check_output_file(datadir, datadir.join('sin_avg_1.js'), test)
@@ -177,6 +201,7 @@ class TestSinRcbm:
             'amplitude': '500',
             'omega': '1',
             'phi': '0',
+            'rampup': False,
             'sample_average': '100',
         }
         self.check_output_file(datadir, datadir.join('sin_avg_2.js'), test)
