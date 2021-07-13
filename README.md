@@ -1,5 +1,7 @@
 # pyrcbm
 
+[![PyPI](https://img.shields.io/pypi/v/pyrcbm?style=for-the-badge)](https://pypi.org/project/pyrcbm/)
+
 This repository contains command line tools to generate [RCbenchmark](https://www.rcbenchmark.com/pages/rcbenchmark-software) scripts.
 
 The scripts provided in this package are:
