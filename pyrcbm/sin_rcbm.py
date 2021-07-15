@@ -32,28 +32,30 @@ if (!data) {{
     rcb.endScript();
 }}
 
+rcb.console.setVerbose(false);
+
 rcb.files.newLogFile({{prefix: filePrefix}});
 
-rcb.wait(readSensor, lastTimestamp);
+readSensor();
+
 function readSensor() {{
-    rcb.console.setVerbose(false);
     rcb.sensors.read(readDone, samplesAvg);
-    rcb.console.setVerbose(true);
 }}
 function readDone(result) {{
-    rcb.console.setVerbose(false);
     rcb.files.newLogEntry(result, readSensor);
-    rcb.console.setVerbose(true);
 }}
 
 rcb.console.print("Starting...");
-rcb.console.setVerbose(true);
 
 if (rampup) {{
     rcb.console.print("Ramping Up...");
-    rcb.output.ramp("esc", 1000, data[0][1], lastTimestamp > 1 ? lastTimestamp : 1, callback); // ramp up to data[0][1] in data[0][0] or 1 sec, whichever is larger
+    rcb.output.ramp("esc", 1000, data[0][1], lastTimestamp > 5 ? lastTimestamp : 5, callback); // ramp up to data[0][1] in data[0][0] or 5 sec, whichever is larger
 }} else {{
-    rcb.wait(callback, lastTimestamp);
+    if (lastTimestamp > 0) {{
+        rcb.wait(callback, lastTimestamp);
+    }} else {{
+        callback();
+    }}
 }}
 
 function callback() {{
@@ -66,7 +68,7 @@ function callback() {{
     }} else {{
         rcb.wait(function() {{
             rcb.endScript();
-        }}, 1000);
+        }}, 1);
     }}
 }}
 '''
@@ -84,7 +86,7 @@ def main():
     parser.add_argument('-r', '--rampup', dest='rampup', action='store_true',
                         help="ramp up from 1000 to initial value (disabled by default)", default=False)
     parser.add_argument('--avg', dest='average', action='store',
-                        help="sample average (default is '20')", default='20')
+                        help="sample average (default is '1')", default='1')
     args = parser.parse_args()
     gen_script(args.offset, args.amplitude, args.frequency, args.phase, args.rampup, args.average)
 
@@ -96,8 +98,8 @@ def gen_script(offset, amplitude, omega, phi, rampup, sample_average):
     omega = float(omega)
     phi = float(phi)
     sample_average = int(sample_average)
-    output_file_prefix = 'sin_wave'
-    data = [ [ timestamp, 1500 + 500 * math.sin( timestamp / 1000 * omega + phi ) ] for timestamp in range(0, 1000 * 20, 25) ] # ms
+    output_file_prefix = 'sin_wave_{}_{}_{}_{}_{}'.format(offset, amplitude, omega, phi, sample_average)
+    data = [ [ timestamp, offset + amplitude * math.sin( timestamp / 1000 * omega + phi ) ] for timestamp in range(0, 1000 * 40, 25) ] # ms
     
     with open(output_file_prefix + '.js', 'w') as js_file:
         data_string = '[{}]'.format(

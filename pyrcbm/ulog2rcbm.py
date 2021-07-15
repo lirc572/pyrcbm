@@ -32,24 +32,22 @@ if (!data) {{
     rcb.endScript();
 }}
 
+rcb.console.setVerbose(false);
+
 rcb.files.newLogFile({{prefix: filePrefix}});
 
-rcb.wait(readSensor, lastTimestamp);
+readSensor();
+
 function readSensor() {{
-    rcb.console.setVerbose(false);
     rcb.sensors.read(readDone, samplesAvg);
-    rcb.console.setVerbose(true);
 }}
 function readDone(result) {{
-    rcb.console.setVerbose(false);
     rcb.files.newLogEntry(result, readSensor);
-    rcb.console.setVerbose(true);
 }}
 
 rcb.console.print("Starting...");
-rcb.console.setVerbose(true);
 
-rcb.wait(callback, lastTimestamp);
+rcb.wait(callback, lastTimestamp > 5 ? 5 : lastTimestamp); // wait 5s or first timestamp, whichever smaller
 
 function callback() {{
     rcb.output.set("esc", data[position][1]);
@@ -61,7 +59,7 @@ function callback() {{
     }} else {{
         rcb.wait(function() {{
             rcb.endScript();
-        }}, 1000);
+        }}, 1);
     }}
 }}
 '''
@@ -74,7 +72,7 @@ def main():
     parser.add_argument('-a', '--actuator', dest='actuator', action='store',
                         help="which actuator's output to use ('0' - '15', default is '0')", default='0')
     parser.add_argument('--avg', dest='average', action='store',
-                        help="sample average (default is '20')", default='20')
+                        help="sample average (default is '1')", default='1')
     args = parser.parse_args()
     convert_ulog2rcbm(args.filename, args.multi, args.actuator, args.average)
 
@@ -87,7 +85,6 @@ def convert_ulog2rcbm(ulog_file_name, multi_id, actuator, sample_average):
             data = d
             break
     output_file_prefix = ulog_file_name
-    # strip '.ulg'
     if output_file_prefix.lower().endswith('.ulg'):
         output_file_prefix = output_file_prefix[:-4]
     output_file_prefix = '{0}_{1}_{2}_{3}'.format(output_file_prefix, d.name, d.multi_id, actuator)
