@@ -53,13 +53,13 @@ optional arguments:
                         multi_id (which actuator_outputs to use, '0' or '1', default is '0')
   -a ACTUATOR, --actuator ACTUATOR
                         which actuator's output to use ('0' - '15', default is '0')
-  --avg AVERAGE         sample average (default is '20')
+  --avg AVERAGE         sample average (default is '1')
 ```
 
 ### Generate an RCbencemark script that outputs a sin wave (sin_rcbm)
 
 ```
-usage: sin_rcbm.py [-h] [-o OFFSET] [-a AMPLITUDE] [-f FREQUENCY] [-p PHASE] [-r] [--avg AVERAGE]
+usage: sin_rcbm [-h] [-o OFFSET] [-a AMPLITUDE] [-f FREQUENCY] [-p PHASE] [-r] [--avg AVERAGE]
 
 Generate a RCbenchmark script that produces sinusoidal wave
 
@@ -74,5 +74,5 @@ optional arguments:
   -p PHASE, --phase PHASE
                         phase, specifies in radians where in its cycle the oscillation is at t=0 (default is '0')
   -r, --rampup          ramp up from 1000 to initial value (disabled by default)
-  --avg AVERAGE         sample average (default is '20')
+  --avg AVERAGE         sample average (default is '1')
 ```
