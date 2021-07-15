@@ -47,7 +47,7 @@ class TestSinRcbm:
             'filename': 'sample1.ulg',
             'multi': '0',
             'actuator': '0',
-            'average': '20',
+            'average': '1',
         }
         self.check_output_file(datadir, datadir.join('ulog_default.js'), test)
 
@@ -56,7 +56,7 @@ class TestSinRcbm:
             'filename': 'sample1.ulg',
             'multi': '0',
             'actuator': '3',
-            'average': '20',
+            'average': '1',
         }
         self.check_output_file(datadir, datadir.join('ulog_actuator_1.js'), test)
 
@@ -65,24 +65,15 @@ class TestSinRcbm:
             'filename': 'sample1.ulg',
             'multi': '0',
             'actuator': '15',
-            'average': '20',
+            'average': '1',
         }
         self.check_output_file(datadir, datadir.join('ulog_actuator_2.js'), test)
 
-    def test_avg_1(self, datadir):
-        test = {
-            'filename': 'sample1.ulg',
-            'multi': '0',
-            'actuator': '0',
-            'average': '1',
-        }
-        self.check_output_file(datadir, datadir.join('ulog_avg_1.js'), test)
-
-    def test_avg_2(self, datadir):
+    def test_avg(self, datadir):
         test = {
             'filename': 'sample1.ulg',
             'multi': '0',
             'actuator': '0',
             'average': '100',
         }
-        self.check_output_file(datadir, datadir.join('ulog_avg_2.js'), test)
+        self.check_output_file(datadir, datadir.join('ulog_avg.js'), test)

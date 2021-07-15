@@ -108,6 +108,7 @@ def gen_script(offset, amplitude, omega, phi, rampup, sample_average):
             )
         )
         js_file.write(js_template.format('"{}"'.format(output_file_prefix), data_string, sample_average, 'true' if rampup else 'false'))
+    return output_file_prefix + '.js'
 
 if __name__ == '__main__':
     main()
