@@ -31,6 +31,9 @@ python setup.py build install
 In a virtual environment or conda environment:
 
 ```sh
+pip install build
+pip install twine
+
 python setup.py develop
 
 # uninstall with `python setup.py develop -u`
