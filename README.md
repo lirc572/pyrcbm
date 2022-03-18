@@ -1,6 +1,7 @@
 # pyrcbm
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/lirc572/pyrcbm/Tests?style=for-the-badge)](https://github.com/lirc572/pyrcbm/actions/workflows/tests.yml)
+[![CI Status](https://img.shields.io/github/workflow/status/lirc572/pyrcbm/Tests?style=for-the-badge)](https://github.com/lirc572/pyrcbm/actions/workflows/test.yml)
+[![CD Status](https://img.shields.io/github/workflow/status/lirc572/pyrcbm/Package%20and%20Distribute%20on%20PyPI?style=for-the-badge)](https://github.com/lirc572/pyrcbm/actions/workflows/distribute.yml)
 [![PyPI](https://img.shields.io/pypi/v/pyrcbm?style=for-the-badge)](https://pypi.org/project/pyrcbm/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyrcbm?style=for-the-badge)](https://pypi.org/project/pyrcbm/)
 
