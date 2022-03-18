@@ -9,6 +9,7 @@ This repository contains command line tools to generate [RCbenchmark](https://ww
 The scripts provided in this package are:
 
 - `ulog2rcbm`: convert PWM outputs from a ULog file to an RCbencemark script
+- `csv2rcbm`: convert a CSV file to an RCbencemark script
 - `sin_rcbm`: generate an RCbencemark script that outputs a sin wave
 
 ## Installation
@@ -53,6 +54,24 @@ optional arguments:
                         multi_id (which actuator_outputs to use, '0' or '1', default is '0')
   -a ACTUATOR, --actuator ACTUATOR
                         which actuator's output to use ('0' - '15', default is '0')
+  --avg AVERAGE         sample average (default is '1')
+```
+
+### Convert a CSV file to an RCbencemark script (csv2rcbm)
+
+```
+usage: csv2rcbm [-h] [-c COLUMN] [-t TIME] [--avg AVERAGE] file.csv
+
+Convert CSV to RCbenchmark script
+
+positional arguments:
+  file.csv              CSV input file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c COLUMN, --col COLUMN
+                        column name (which column to use)
+  -t TIME, --time TIME  time column name (which column to use as time, default is 'timestamp')
   --avg AVERAGE         sample average (default is '1')
 ```
 
